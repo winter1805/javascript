@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html >
+<head> 
+<title>Sistema de Facturacion</title>
+</head>
+
+<body>
+<br><br><br><br><br><br><br>
+	<br><center><h2>Sistema de Facturacion Darmacio </h2></center><br>
+
+<center>
+<table border="0px">
+<tr><td>Cedula Cliente</td>
+<td><input type="text"></td></tr>	
+<tr><td>Nombre Cliente</td>
+<td><input type="text"></td></tr>	
+
+<tr>
+	<td><center>Codigo</center></td>
+	<td><center>Descripcion</center></td>
+	<td><center>Valor unitario</center></td>
+	<td><center>Cantidad</center></td>
+	<td><center>Subtotal</center></td>
+</tr>
+
+<tr>
+	<td> <input type="text" onChange="anidar()"> </td>
+	<td> <input type="text"> </td>
+	<td> <input type="text" id="val1" onChange="calcular(val1.value, cant1.value, sub1.id)"></td>
+	<td> <input type="text" id="cant1" onChange="calcular(val1.value, cant1.value, sub1.id)"></td>
+	<td> <input type="text" id="sub1" value="0" ></td>
+</tr>
+</table>
+
+<tr>
+	<div id="celdasFactura">
+	</div>
+</tr>
+
+<table border="0px">
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td><center>Subtotal</center> </td>
+	<td> <input type="text" id="cajasubtotal"></td>
+</tr>
+
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td><center>Iva 12 %</center></td>
+	<td> <input type="text" id="cajaiva"></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td><center>Valor Total</center></td>
+	<td> <input type="text" id="cajatotal"></td>
+</tr>
+</table>
+
+<button onClick="totalFactura()">CALCULAR TOTAL DE FACTURA</button>
+</center>
+
+
+</body>
+</html>
+
+
+<script type="text/javascript">
+
+
+
+
+var sub = 0;
+var multi = 0;
+var iva = 0;
+var vtotal = 0;
+var s = 0;
+
+var acu = 1;
+var celdas="";
+
+
+function anidar(){
+
+acu = acu+1;
+
+c1 = "<tr><td> <input type='text'onChange='anidar()'> </td><td> <input type='text'> </td>";
+c2 = "<td> <input type='text' id='val"+acu+"' onChange='calcular(val"+acu+".value, cant"+acu+".value, sub"+acu+".id)'></td>";
+c3 = "<td> <input type='text' id='cant"+acu+"' onChange='calcular(val"+acu+".value, cant"+acu+".value, sub"+acu+".id)'></td>";
+c4 = "<td> <input type='text' id='sub"+acu+"' value='0'></td></tr><br>";
+
+	
+	celdas = c1+c2+c3+c4;
+document.getElementById("celdasFactura").innerHTML += celdas;
+
+return acu;
+
+}
+	
+function calcular(val, cant, subto) {
+	multi = (val * cant); 
+	document.getElementById(subto).value = multi;
+
+}
+
+function totalFactura () {
+	alert(acu);
+
+
+for( var i=1; i<=acu; i++){
+	s = document.getElementById('sub'+i+'').value;
+	s = parseInt(s);
+	sub += s;
+
+	document.getElementById("cajasubtotal").value = sub;
+ 
+ 	iva = (sub *12)/100;
+	document.getElementById("cajaiva").value = iva;
+
+	vtotal = sub + iva ;
+	document.getElementById("cajatotal").value = vtotal;
+	};
+}
+
+
+
+
+</script>
+
+<style type="text/css">
+html
+{
+background-image:url(fondo.jpg);
+background-repeat:no-repeat;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+
+</style>
